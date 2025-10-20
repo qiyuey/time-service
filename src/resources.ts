@@ -116,7 +116,12 @@ export const TIMEZONE_GROUPS = {
     "Australia/Brisbane",
     "Australia/Perth",
   ],
-  Africa: ["Africa/Cairo", "Africa/Johannesburg", "Africa/Lagos", "Africa/Nairobi"],
+  Africa: [
+    "Africa/Cairo",
+    "Africa/Johannesburg",
+    "Africa/Lagos",
+    "Africa/Nairobi",
+  ],
 };
 
 /**

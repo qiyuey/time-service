@@ -50,8 +50,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
  * 当 Claude 决定调用某个工具时，会发送 CallToolRequest 请求。
  * 这个处理器根据工具名称执行相应的逻辑，并返回结果。
  */
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  return handleToolCall(request.params);
+server.setRequestHandler(CallToolRequestSchema, async (request, _extra) => {
+  // Cast to the MCP ToolResponse shape to satisfy SDK typings while preserving runtime behavior
+  return handleToolCall(request.params) as unknown as {
+    content: Array<
+      { type: string; text?: string } | { type: string; [key: string]: unknown }
+    >;
+    isError?: boolean;
+  };
 });
 
 /**

@@ -18,9 +18,11 @@ export function isValidTimezone(timezone: string): boolean {
 /**
  * 验证自定义格式 JSON 是否有效
  */
-export function validateCustomFormat(
-  customFormat: string,
-): { valid: boolean; error?: string; options?: Intl.DateTimeFormatOptions } {
+export function validateCustomFormat(customFormat: string): {
+  valid: boolean;
+  error?: string;
+  options?: Intl.DateTimeFormatOptions;
+} {
   try {
     const options = JSON.parse(customFormat);
 

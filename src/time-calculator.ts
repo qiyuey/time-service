@@ -2,7 +2,7 @@
  * 时间计算工具函数
  */
 
-import { TIME_DIFF_UNITS, TIME_FORMATS, DEFAULTS } from "./config";
+import { TIME_FORMATS, TIME_DIFF_UNITS, DEFAULTS } from "./config";
 import type {
   AddTimeOptions,
   AddTimeResult,
@@ -17,98 +17,11 @@ import {
   isValidTimeDiffUnit,
   isValidTimeFormat,
 } from "./validation";
-
-/**
- * 时间单位转换为毫秒
- */
-function unitToMilliseconds(amount: number, unit: string): number {
-  const unitLower = unit.toLowerCase();
-  switch (unitLower) {
-    case TIME_DIFF_UNITS.MILLISECONDS:
-      return amount;
-    case TIME_DIFF_UNITS.SECONDS:
-      return amount * 1000;
-    case TIME_DIFF_UNITS.MINUTES:
-      return amount * 60 * 1000;
-    case TIME_DIFF_UNITS.HOURS:
-      return amount * 60 * 60 * 1000;
-    case TIME_DIFF_UNITS.DAYS:
-      return amount * 24 * 60 * 60 * 1000;
-    case TIME_DIFF_UNITS.WEEKS:
-      return amount * 7 * 24 * 60 * 60 * 1000;
-    default:
-      throw new Error(`Unknown unit: ${unit}`);
-  }
-}
-
-/**
- * 毫秒转换为指定单位
- */
-function millisecondsToUnit(milliseconds: number, unit: string): number {
-  const unitLower = unit.toLowerCase();
-  switch (unitLower) {
-    case TIME_DIFF_UNITS.MILLISECONDS:
-      return milliseconds;
-    case TIME_DIFF_UNITS.SECONDS:
-      return milliseconds / 1000;
-    case TIME_DIFF_UNITS.MINUTES:
-      return milliseconds / (60 * 1000);
-    case TIME_DIFF_UNITS.HOURS:
-      return milliseconds / (60 * 60 * 1000);
-    case TIME_DIFF_UNITS.DAYS:
-      return milliseconds / (24 * 60 * 60 * 1000);
-    case TIME_DIFF_UNITS.WEEKS:
-      return milliseconds / (7 * 24 * 60 * 60 * 1000);
-    default:
-      throw new Error(`Unknown unit: ${unit}`);
-  }
-}
-
-/**
- * 格式化日期为指定格式
- */
-function formatDate(
-  date: Date,
-  format: string,
-  timezone?: string,
-): string {
-  const formatLower = format.toLowerCase();
-
-  if (formatLower === TIME_FORMATS.ISO) {
-    if (timezone) {
-      return date.toLocaleString(DEFAULTS.LOCALE, {
-        timeZone: timezone,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      });
-    }
-    return date.toISOString();
-  } else if (formatLower === TIME_FORMATS.UNIX) {
-    return Math.floor(date.getTime() / 1000).toString();
-  } else if (formatLower === TIME_FORMATS.READABLE) {
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "short",
-    };
-    if (timezone) {
-      options.timeZone = timezone;
-    }
-    return date.toLocaleString(DEFAULTS.LOCALE, options);
-  }
-
-  return date.toISOString();
-}
+import {
+  unitToMilliseconds,
+  millisecondsToUnit,
+  formatDate,
+} from "./date-utils";
 
 /**
  * 时间加减运算

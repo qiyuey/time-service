@@ -17,14 +17,13 @@ import {
   isValidTimeString,
   isValidTimeFormat,
 } from "./validation";
+import { formatDate } from "./date-utils";
 
 /**
  * 获取 UTC 偏移量字符串
  */
 function getUTCOffset(date: Date, timezone: string): string {
-  const utcDate = new Date(
-    date.toLocaleString("en-US", { timeZone: "UTC" }),
-  );
+  const utcDate = new Date(date.toLocaleString("en-US", { timeZone: "UTC" }));
   const tzDate = new Date(date.toLocaleString("en-US", { timeZone: timezone }));
   const offsetMs = tzDate.getTime() - utcDate.getTime();
   const offsetHours = Math.floor(Math.abs(offsetMs) / (1000 * 60 * 60));
@@ -33,46 +32,6 @@ function getUTCOffset(date: Date, timezone: string): string {
   );
   const sign = offsetMs >= 0 ? "+" : "-";
   return `UTC${sign}${String(offsetHours).padStart(2, "0")}:${String(offsetMinutes).padStart(2, "0")}`;
-}
-
-/**
- * 格式化日期为指定格式
- */
-function formatDateForTimezone(
-  date: Date,
-  timezone: string,
-  format: string,
-): string {
-  const formatLower = format.toLowerCase();
-
-  if (formatLower === TIME_FORMATS.ISO) {
-    return date.toLocaleString(DEFAULTS.LOCALE, {
-      timeZone: timezone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-    });
-  } else if (formatLower === TIME_FORMATS.UNIX) {
-    return Math.floor(date.getTime() / 1000).toString();
-  } else if (formatLower === TIME_FORMATS.READABLE) {
-    return date.toLocaleString(DEFAULTS.LOCALE, {
-      timeZone: timezone,
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "short",
-    });
-  }
-
-  return date.toISOString();
 }
 
 /**
@@ -111,7 +70,7 @@ export function getMultipleTimezones(
 
   // 获取每个时区的时间
   const timezones: TimezoneInfo[] = options.timezones.map((timezone) => {
-    const time = formatDateForTimezone(baseDate, timezone, format);
+    const time = formatDate(baseDate, format, timezone);
     const utcOffset = getUTCOffset(baseDate, timezone);
 
     return {
@@ -284,13 +243,20 @@ export function nextOccurrence(
   // 如果指定了时间，设置时间
   if (options.time) {
     const timeMatch = options.time.match(/^(\d{1,2}):(\d{2})$/);
-    if (!timeMatch) {
-      throw new Error(
-        'Invalid time format. Use HH:mm format (e.g., "14:30")',
-      );
+    if (
+      !timeMatch ||
+      timeMatch[1] === undefined ||
+      timeMatch[2] === undefined
+    ) {
+      throw new Error('Invalid time format. Use HH:mm format (e.g., "14:30")');
     }
     const hours = parseInt(timeMatch[1], 10);
     const minutes = parseInt(timeMatch[2], 10);
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+      throw new Error(
+        "Invalid time format. Use HH:mm with 00-23 for hours and 00-59 for minutes",
+      );
+    }
     targetDate.setHours(hours, minutes, 0, 0);
   }
 

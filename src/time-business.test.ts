@@ -17,9 +17,12 @@ describe("getMultipleTimezones", () => {
     });
 
     expect(result.timezones).toHaveLength(3);
-    expect(result.timezones[0].timezone).toBe("America/New_York");
-    expect(result.timezones[1].timezone).toBe("Asia/Tokyo");
-    expect(result.timezones[2].timezone).toBe("Europe/London");
+    const tz0 = result.timezones[0]!;
+    const tz1 = result.timezones[1]!;
+    const tz2 = result.timezones[2]!;
+    expect(tz0.timezone).toBe("America/New_York");
+    expect(tz1.timezone).toBe("Asia/Tokyo");
+    expect(tz2.timezone).toBe("Europe/London");
     expect(result.baseTime).toBeDefined();
   });
 
@@ -40,8 +43,9 @@ describe("getMultipleTimezones", () => {
       format: TIME_FORMATS.UNIX,
     });
 
-    expect(result.timezones[0].format).toBe(TIME_FORMATS.UNIX);
-    expect(result.timezones[0].time).toMatch(/^\d{10}$/);
+    const tz = result.timezones[0]!;
+    expect(tz.format).toBe(TIME_FORMATS.UNIX);
+    expect(tz.time).toMatch(/^\d{10}$/);
   });
 
   test("should include UTC offset", () => {
@@ -49,7 +53,8 @@ describe("getMultipleTimezones", () => {
       timezones: ["Asia/Shanghai"],
     });
 
-    expect(result.timezones[0].utcOffset).toMatch(/^UTC[+-]\d{2}:\d{2}$/);
+    const tz = result.timezones[0]!;
+    expect(tz.utcOffset).toMatch(/^UTC[+-]\d{2}:\d{2}$/);
   });
 
   test("should throw error for invalid timezone", () => {
@@ -207,6 +212,24 @@ describe("nextOccurrence", () => {
       nextOccurrence({
         dayOfWeek: 1,
         time: "invalid",
+      });
+    }).toThrow("Invalid time format");
+  });
+
+  test("should throw error for out-of-range hour (24:00)", () => {
+    expect(() => {
+      nextOccurrence({
+        dayOfWeek: 1,
+        time: "24:00",
+      });
+    }).toThrow("Invalid time format");
+  });
+
+  test("should throw error for out-of-range minute (12:60)", () => {
+    expect(() => {
+      nextOccurrence({
+        dayOfWeek: 1,
+        time: "12:60",
       });
     }).toThrow("Invalid time format");
   });
