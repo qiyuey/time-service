@@ -1,106 +1,143 @@
+# CLAUDE.md
 
-Default to using Bun instead of Node.js.
+This file provides guidance to Claude Code (claude.ai/code) when working
+with code in this repository.
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+## Project Overview
 
-## APIs
+This is a **Model Context Protocol (MCP) server** that provides comprehensive
+time manipulation tools to Claude and other MCP clients. It's a TypeScript
+project running on Bun runtime.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+**Available Tools:**
 
-## Testing
+- `get_current_time`: Get current date/time in various formats
+- `get_timestamp`: Get Unix timestamp
+- `add_time`: Add/subtract time from a base time
+- `time_diff`: Calculate difference between two times
+- `convert_timezone`: Convert time between timezones
 
-Use `bun test` to run tests.
+## Common Commands
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
+### Development
 
-test("hello world", () => {
-  expect(1).toBe(1);
-});
+```bash
+# Start the MCP server (usually called by MCP client, not directly)
+bun start
+
+# Run tests
+bun test
+
+# Install dependencies
+bun install
 ```
 
-## Frontend
+### Release Management
 
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+```bash
+# Patch release (0.1.0 -> 0.1.1)
+bun run release:patch
 
-Server:
+# Minor release (0.1.0 -> 0.2.0)
+bun run release:minor
 
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
+# Major release (0.1.0 -> 1.0.0)
+bun run release:major
 ```
 
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+## Architecture
 
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
+### MCP Server Pattern
+
+This codebase follows the standard MCP server architecture:
+
+1. **Server Setup** (`time-server.ts`): Entry point that creates an MCP
+   server instance using `@modelcontextprotocol/sdk`
+2. **Tool Definitions** (`src/tool-definitions.ts`): JSON schemas describing
+   available tools and their parameters
+3. **Tool Handlers** (`src/tool-handlers.ts`): Business logic that executes
+   when tools are called
+4. **Core Logic**:
+   - `src/time-formatter.ts`: Time formatting utilities
+   - `src/time-calculator.ts`: Time calculation utilities
+5. **Validation** (`src/validation.ts`): Input validation functions
+6. **Configuration** (`src/config.ts`): Constants and server configuration
+7. **Types** (`src/types.ts`): TypeScript type definitions
+
+### Communication Flow
+
+```text
+MCP Client (Claude)
+  → ListToolsRequest → Returns tool definitions
+  → CallToolRequest → Routes to appropriate handler → Returns result
 ```
 
-With the following `frontend.tsx`:
+### Module Structure
 
-```tsx#frontend.tsx
-import React from "react";
+- **Separation of concerns**: Tool schemas are separate from execution logic
+- **Type safety**: All functions use TypeScript interfaces from `types.ts`
+- **Input validation**: All user inputs are validated before processing
+- **Extensibility**: Add new tools by:
+  1. Adding types to `types.ts`
+  2. Adding validation to `validation.ts` (if needed)
+  3. Adding core logic to `time-formatter.ts` or `time-calculator.ts`
+  4. Adding a tool definition to `tool-definitions.ts`
+  5. Adding a handler function to `tool-handlers.ts`
+  6. Adding the handler to the `toolHandlers` map
+  7. Writing tests in `*.test.ts` files
 
-// import .css files directly and it works
-import './index.css';
+## Key Implementation Details
 
-import { createRoot } from "react-dom/client";
+### Tool Response Format
 
-const root = createRoot(document.body);
+All tool handlers must return a `ToolResult` object:
 
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
+```typescript
+{
+  content: [{ type: "text", text: "..." }],
+  isError?: boolean
 }
-
-root.render(<Frontend />);
 ```
 
-Then, run index.ts
+### Error Handling
 
-```sh
-bun --hot ./index.ts
-```
+- All inputs are validated before processing
+- Invalid inputs throw descriptive errors
+- Tool handlers use try-catch to capture errors
+- `createErrorResponse()` standardizes error formatting
+- Errors are returned as tool results, not thrown
 
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+### Stdio Communication
+
+- Server uses `StdioServerTransport` for communication
+- `console.error()` is safe for logging (doesn't interfere with stdio)
+- All MCP communication happens through stdin/stdout
+
+## Testing Notes
+
+This project has comprehensive test coverage (60+ tests):
+
+- **Test Framework**: `bun test`
+- **Test Files**: `src/*.test.ts`
+- **Coverage Includes**:
+  - Unit tests for `time-formatter.ts` utilities
+  - Unit tests for `time-calculator.ts` functions
+  - Validation tests for `validation.ts`
+  - Integration tests for `tool-handlers.ts`
+  - Error handling and edge cases
+
+**Run tests**: `bun test`
+
+When adding new features:
+
+1. Write tests before implementing (TDD recommended)
+2. Test happy paths and error cases
+3. Validate edge cases (invalid inputs, boundary conditions)
+4. Ensure 100% coverage of new code
+
+## Bun-Specific Notes
+
+- This project uses **Bun runtime** (not Node.js)
+- Shebang in `time-server.ts`: `#!/usr/bin/env bun`
+- Bun natively supports TypeScript (no build step needed)
+- Use `bun` commands instead of `npm`/`node`/`ts-node`

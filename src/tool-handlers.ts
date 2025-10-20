@@ -3,6 +3,7 @@
  */
 
 import { formatTime, getTimestamp } from "./time-formatter";
+import { addTime, timeDiff, convertTimezone } from "./time-calculator";
 import { TOOL_NAMES } from "./config";
 import type { ToolCallParams, ToolResult } from "./types";
 
@@ -59,6 +60,45 @@ function handleGetTimestamp(args?: Record<string, unknown>): ToolResult {
 }
 
 /**
+ * 处理 add_time 工具
+ */
+function handleAddTime(args?: Record<string, unknown>): ToolResult {
+  const result = addTime({
+    amount: args?.amount as number,
+    unit: args?.unit as string,
+    baseTime: args?.baseTime as string | undefined,
+    format: args?.format as string | undefined,
+    timezone: args?.timezone as string | undefined,
+  });
+  return createSuccessResponse(result);
+}
+
+/**
+ * 处理 time_diff 工具
+ */
+function handleTimeDiff(args?: Record<string, unknown>): ToolResult {
+  const result = timeDiff({
+    startTime: args?.startTime as string,
+    endTime: args?.endTime as string,
+    unit: args?.unit as string | undefined,
+  });
+  return createSuccessResponse(result);
+}
+
+/**
+ * 处理 convert_timezone 工具
+ */
+function handleConvertTimezone(args?: Record<string, unknown>): ToolResult {
+  const result = convertTimezone({
+    time: args?.time as string,
+    fromTimezone: args?.fromTimezone as string | undefined,
+    toTimezone: args?.toTimezone as string,
+    format: args?.format as string | undefined,
+  });
+  return createSuccessResponse(result);
+}
+
+/**
  * 工具处理器映射表
  */
 const toolHandlers: Record<
@@ -67,6 +107,9 @@ const toolHandlers: Record<
 > = {
   [TOOL_NAMES.GET_CURRENT_TIME]: handleGetCurrentTime,
   [TOOL_NAMES.GET_TIMESTAMP]: handleGetTimestamp,
+  [TOOL_NAMES.ADD_TIME]: handleAddTime,
+  [TOOL_NAMES.TIME_DIFF]: handleTimeDiff,
+  [TOOL_NAMES.CONVERT_TIMEZONE]: handleConvertTimezone,
 };
 
 /**

@@ -14,6 +14,12 @@ import type {
   FormattedTime,
   TimestampResult,
 } from "./types";
+import {
+  isValidTimezone,
+  validateCustomFormat,
+  isValidTimeFormat,
+  isValidTimestampUnit,
+} from "./validation";
 
 /**
  * 格式化为 Unix 时间戳（秒）
@@ -42,19 +48,19 @@ function formatCustom(
   timezone?: string,
 ): string {
   if (!customFormat) {
-    return date.toISOString();
+    throw new Error("Custom format string is required when format is 'custom'");
   }
 
-  try {
-    const customOptions = JSON.parse(customFormat);
-    if (timezone) {
-      customOptions.timeZone = timezone;
-    }
-    return date.toLocaleString(DEFAULTS.LOCALE, customOptions);
-  } catch {
-    // 如果解析失败，回退到 ISO 格式
-    return date.toISOString();
+  const validation = validateCustomFormat(customFormat);
+  if (!validation.valid) {
+    throw new Error(`Invalid custom format: ${validation.error}`);
   }
+
+  const customOptions = validation.options!;
+  if (timezone) {
+    customOptions.timeZone = timezone;
+  }
+  return date.toLocaleString(DEFAULTS.LOCALE, customOptions);
 }
 
 /**
@@ -82,8 +88,20 @@ function formatISO(date: Date, timezone?: string): string {
 export function formatTime(options: TimeFormatOptions = {}): FormattedTime {
   const format = options.format || DEFAULTS.TIME_FORMAT;
   const timezone = options.timezone;
-  const now = new Date();
 
+  // 验证格式类型
+  if (format && !isValidTimeFormat(format)) {
+    throw new Error(
+      `Invalid format: ${format}. Must be one of: iso, unix, readable, custom`,
+    );
+  }
+
+  // 验证时区
+  if (timezone && !isValidTimezone(timezone)) {
+    throw new Error(`Invalid timezone: ${timezone}`);
+  }
+
+  const now = new Date();
   let timeString: string;
 
   switch (format) {
@@ -114,6 +132,14 @@ export function formatTime(options: TimeFormatOptions = {}): FormattedTime {
  */
 export function getTimestamp(options: TimestampOptions = {}): TimestampResult {
   const unit = options.unit || DEFAULTS.TIMESTAMP_UNIT;
+
+  // 验证单位
+  if (unit && !isValidTimestampUnit(unit)) {
+    throw new Error(
+      `Invalid unit: ${unit}. Must be one of: seconds, milliseconds`,
+    );
+  }
+
   const now = Date.now();
 
   const timestamp =

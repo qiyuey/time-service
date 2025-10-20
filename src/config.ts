@@ -16,6 +16,9 @@ export const SERVER_CONFIG = {
 export const TOOL_NAMES = {
   GET_CURRENT_TIME: "get_current_time",
   GET_TIMESTAMP: "get_timestamp",
+  ADD_TIME: "add_time",
+  TIME_DIFF: "time_diff",
+  CONVERT_TIMEZONE: "convert_timezone",
 } as const;
 
 /**
@@ -34,6 +37,18 @@ export const TIME_FORMATS = {
 export const TIMESTAMP_UNITS = {
   SECONDS: "seconds",
   MILLISECONDS: "milliseconds",
+} as const;
+
+/**
+ * 时间差单位
+ */
+export const TIME_DIFF_UNITS = {
+  MILLISECONDS: "milliseconds",
+  SECONDS: "seconds",
+  MINUTES: "minutes",
+  HOURS: "hours",
+  DAYS: "days",
+  WEEKS: "weeks",
 } as const;
 
 /**
