@@ -8,7 +8,11 @@
     "time-service": "time-server.ts"
   },
   "scripts": {
-    "start": "bun time-server.ts"
+    "start": "bun time-server.ts",
+    "test": "bun test",
+    "release:patch": "npm version patch && git push && git push --tags",
+    "release:minor": "npm version minor && git push && git push --tags",
+    "release:major": "npm version major && git push && git push --tags"
   },
   "keywords": [
     "mcp",
