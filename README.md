@@ -90,8 +90,6 @@ Find next occurrence with flexible conditions:
 
 ## 📦 Installation
 
-### Quick Start (No Installation Required)
-
 Add to your MCP client configuration:
 
 ```json
@@ -100,24 +98,6 @@ Add to your MCP client configuration:
     "time-service": {
       "command": "npx",
       "args": ["-y", "@qiyuey/time-service"]
-    }
-  }
-}
-```
-
-### Alternative: Global Installation
-
-```bash
-npm install -g @qiyuey/time-service
-```
-
-Then configure:
-
-```json
-{
-  "mcpServers": {
-    "time-service": {
-      "command": "time-service"
     }
   }
 }

@@ -90,8 +90,6 @@
 
 ## 📦 安装
 
-### 快速开始（无需安装）
-
 添加到你的 MCP 客户端配置：
 
 ```json
@@ -100,24 +98,6 @@
     "time-service": {
       "command": "npx",
       "args": ["-y", "@qiyuey/time-service"]
-    }
-  }
-}
-```
-
-### 备选方案：全局安装
-
-```bash
-npm install -g @qiyuey/time-service
-```
-
-然后配置：
-
-```json
-{
-  "mcpServers": {
-    "time-service": {
-      "command": "time-service"
     }
   }
 }
