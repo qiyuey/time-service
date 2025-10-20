@@ -161,7 +161,7 @@ Time Service：使用 convert_timezone
 **场景 4：周期性活动规划**
 
 ```text
-用户："下周一早上 9 点是几号？"
+用户："下周一早上 9 点是什么时候？"
 
 Time Service：使用 next_occurrence
 → 找到精确的日期和时间

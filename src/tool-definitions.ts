@@ -200,7 +200,7 @@ export const getMultipleTimezonesToolDefinition = {
 export const getBusinessDaysToolDefinition = {
   name: TOOL_NAMES.GET_BUSINESS_DAYS,
   description:
-    "Calculate a date by adding/subtracting business days (excluding weekends)",
+    "Calculate a future or past date by adding/subtracting business days (working days, excluding weekends). Use this tool when users ask about business days, working days, weekdays, or questions like 'X business days from now/today', 'X working days after/before [date]', or 'what date is X business days from now'.",
   inputSchema: {
     type: "object",
     properties: {
@@ -229,7 +229,7 @@ export const getBusinessDaysToolDefinition = {
 export const nextOccurrenceToolDefinition = {
   name: TOOL_NAMES.NEXT_OCCURRENCE,
   description:
-    "Find the next occurrence of a specific day of week, day of month, or time",
+    "Find the next occurrence of a specific day of week, day of month, or time. Use this tool when users ask questions like 'when is the next Monday', 'next Friday at 2pm', 'when is the next 15th', 'next occurrence of Tuesday', or any question about finding the next specific day or time.",
   inputSchema: {
     type: "object",
     properties: {
