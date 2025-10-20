@@ -1,6 +1,20 @@
 # Time Service
 
+[![npm version](https://img.shields.io/npm/v/@qiyuey/time-service.svg)](https://www.npmjs.com/package/@qiyuey/time-service)
+[![npm downloads](https://img.shields.io/npm/dm/@qiyuey/time-service.svg)](https://www.npmjs.com/package/@qiyuey/time-service)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/qiyuey/time-service?style=social)](https://github.com/qiyuey/time-service)
+[![GitHub Issues](https://img.shields.io/github/issues/qiyuey/time-service)](https://github.com/qiyuey/time-service/issues)
+[![CI Status](https://github.com/qiyuey/time-service/actions/workflows/publish.yml/badge.svg)](https://github.com/qiyuey/time-service/actions)
+
 A Model Context Protocol (MCP) server that provides time-related tools.
+
+**Links:**
+📦 [npm Package](https://www.npmjs.com/package/@qiyuey/time-service) •
+🐙 [GitHub Repository](https://github.com/qiyuey/time-service) •
+📝 [Changelog](https://github.com/qiyuey/time-service/releases) •
+🐛 [Report Issues](https://github.com/qiyuey/time-service/issues) •
+📖 [MCP Documentation](https://modelcontextprotocol.io)
 
 ## Features
 
@@ -327,6 +341,32 @@ The codebase follows a modular architecture:
   and handlers
 - **Well-tested**: Comprehensive test suite ensures reliability
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Links & Resources
+
+- 📦 **npm Package**: [https://www.npmjs.com/package/@qiyuey/time-service](https://www.npmjs.com/package/@qiyuey/time-service)
+- 🐙 **GitHub**: [https://github.com/qiyuey/time-service](https://github.com/qiyuey/time-service)
+- 📖 **MCP Protocol**: [https://modelcontextprotocol.io](https://modelcontextprotocol.io)
+- 🤖 **Claude AI**: [https://claude.ai](https://claude.ai)
+- 💬 **Issues & Support**: [GitHub Issues](https://github.com/qiyuey/time-service/issues)
+
 ## License
 
-MIT
+MIT © [qiyuey](https://github.com/qiyuey)
+
+---
+
+Made with ❤️ for the MCP ecosystem
+
+[![Built with Bun](https://img.shields.io/badge/Built%20with-Bun-black?logo=bun)](https://bun.sh)
+[![Powered by TypeScript](https://img.shields.io/badge/Powered%20by-TypeScript-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-green)](https://modelcontextprotocol.io)
