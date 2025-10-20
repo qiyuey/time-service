@@ -3,6 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/@qiyuey/time-service.svg)](https://www.npmjs.com/package/@qiyuey/time-service)
 [![npm downloads](https://img.shields.io/npm/dm/@qiyuey/time-service.svg)](https://www.npmjs.com/package/@qiyuey/time-service)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Anti 996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![GitHub Stars](https://img.shields.io/github/stars/qiyuey/time-service?style=social)](https://github.com/qiyuey/time-service)
 [![CI Status](https://github.com/qiyuey/time-service/actions/workflows/publish.yml/badge.svg)](https://github.com/qiyuey/time-service/actions)
 
@@ -270,6 +272,15 @@ A: Absolutely! 100% function coverage, 115 test cases, fully typed, and actively
 ---
 
 ## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project also supports the [Anti-996 License](https://github.com/996icu/996.ICU/blob/master/LICENSE). By using this software, you agree to comply with labor laws and regulations, and not to force employees to work overtime without reasonable compensation.
+
+**Additional Terms:**
+- This software is for learning, research, and legitimate business use only
+- Users must comply with local labor laws and regulations
+- Prohibited from using this software to exploit workers or violate labor rights
 
 MIT © [qiyuey](https://github.com/qiyuey)
 

@@ -3,6 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/@qiyuey/time-service.svg)](https://www.npmjs.com/package/@qiyuey/time-service)
 [![npm downloads](https://img.shields.io/npm/dm/@qiyuey/time-service.svg)](https://www.npmjs.com/package/@qiyuey/time-service)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Anti 996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![GitHub Stars](https://img.shields.io/github/stars/qiyuey/time-service?style=social)](https://github.com/qiyuey/time-service)
 [![CI Status](https://github.com/qiyuey/time-service/actions/workflows/publish.yml/badge.svg)](https://github.com/qiyuey/time-service/actions)
 
@@ -270,6 +272,15 @@ Time Service：使用 next_occurrence
 ---
 
 ## 📄 许可证
+
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
+
+本项目同时支持 [反 996 许可证](https://github.com/996icu/996.ICU/blob/master/LICENSE_CN)。使用本软件即表示您同意遵守劳动法律法规，不强制员工在没有合理补偿的情况下加班。
+
+**附加条款：**
+- 本软件仅供学习、研究和合法商业用途
+- 用户必须遵守当地劳动法律法规
+- 禁止使用本软件剥削员工或侵犯劳动权益
 
 MIT © [qiyuey](https://github.com/qiyuey)
 
