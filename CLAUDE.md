@@ -11,11 +11,22 @@ project running on Bun runtime.
 
 **Available Tools:**
 
+Core Time:
+
 - `get_current_time`: Get current date/time in various formats
 - `get_timestamp`: Get Unix timestamp
+
+Time Calculations:
+
 - `add_time`: Add/subtract time from a base time
 - `time_diff`: Calculate difference between two times
 - `convert_timezone`: Convert time between timezones
+
+Batch & Business:
+
+- `get_multiple_timezones`: Get time in multiple timezones at once
+- `get_business_days`: Calculate business days (excluding weekends)
+- `next_occurrence`: Find next occurrence of specific day/time
 
 ## Common Commands
 
@@ -60,9 +71,11 @@ This codebase follows the standard MCP server architecture:
 4. **Core Logic**:
    - `src/time-formatter.ts`: Time formatting utilities
    - `src/time-calculator.ts`: Time calculation utilities
+   - `src/time-business.ts`: Business time functions
 5. **Validation** (`src/validation.ts`): Input validation functions
-6. **Configuration** (`src/config.ts`): Constants and server configuration
-7. **Types** (`src/types.ts`): TypeScript type definitions
+6. **Resources** (`src/resources.ts`): MCP Resources definitions
+7. **Configuration** (`src/config.ts`): Constants and server configuration
+8. **Types** (`src/types.ts`): TypeScript type definitions
 
 ### Communication Flow
 
@@ -115,13 +128,14 @@ All tool handlers must return a `ToolResult` object:
 
 ## Testing Notes
 
-This project has comprehensive test coverage (60+ tests):
+This project has comprehensive test coverage (83+ tests):
 
 - **Test Framework**: `bun test`
 - **Test Files**: `src/*.test.ts`
 - **Coverage Includes**:
   - Unit tests for `time-formatter.ts` utilities
   - Unit tests for `time-calculator.ts` functions
+  - Unit tests for `time-business.ts` functions
   - Validation tests for `validation.ts`
   - Integration tests for `tool-handlers.ts`
   - Error handling and edge cases

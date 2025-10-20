@@ -18,20 +18,38 @@ This MCP server provides comprehensive time manipulation tools:
 
 ### Time Calculation Tools
 
-3. **add_time** - Add or subtract time from a base time
+1. **add_time** - Add or subtract time from a base time
    - Supports: milliseconds, seconds, minutes, hours, days, weeks
    - Works with current time or specified base time
    - Configurable output format and timezone
 
-4. **time_diff** - Calculate the difference between two times
+2. **time_diff** - Calculate the difference between two times
    - Returns difference in any time unit
    - Provides both signed and absolute difference
    - Supports any parseable date format
 
-5. **convert_timezone** - Convert time between timezones
+3. **convert_timezone** - Convert time between timezones
    - Convert from any timezone to another
    - Supports all IANA timezone names
    - Flexible output formatting
+
+### Batch and Business Tools
+
+1. **get_multiple_timezones** - Get time in multiple timezones at once
+   - Batch operation to reduce API calls
+   - Returns time with UTC offset for each timezone
+   - Supports all output formats
+
+2. **get_business_days** - Calculate business days
+   - Add/subtract business days excluding weekends
+   - Useful for deadline calculations
+   - Returns total calendar days spanned
+
+3. **next_occurrence** - Find next occurrence of specific day/time
+   - Find next Monday, Friday, etc.
+   - Find next 15th, 1st, etc. of the month
+   - Combine conditions (e.g., "next Monday at 2pm")
+   - Great for scheduling and reminders
 
 ## Installation
 
@@ -106,7 +124,7 @@ Configure with absolute path:
 
 ## Example Tool Calls
 
-### Core Time Tools
+### Basic Time Tools
 
 **Get current time in ISO format:**
 
@@ -142,7 +160,7 @@ Configure with absolute path:
 }
 ```
 
-### Time Calculation Tools
+### Time Calculation Examples
 
 **Add 3 days to current time:**
 
@@ -197,6 +215,54 @@ Configure with absolute path:
 }
 ```
 
+### Business Operations Examples
+
+**Get time in multiple timezones at once:**
+
+```json
+{
+  "name": "get_multiple_timezones",
+  "arguments": {
+    "timezones": ["America/New_York", "Europe/London", "Asia/Tokyo"]
+  }
+}
+```
+
+**Calculate 5 business days from a date:**
+
+```json
+{
+  "name": "get_business_days",
+  "arguments": {
+    "startDate": "2024-01-15T00:00:00Z",
+    "days": 5
+  }
+}
+```
+
+**Find next Monday:**
+
+```json
+{
+  "name": "next_occurrence",
+  "arguments": {
+    "dayOfWeek": 1
+  }
+}
+```
+
+**Find next 15th of the month at 2pm:**
+
+```json
+{
+  "name": "next_occurrence",
+  "arguments": {
+    "dayOfMonth": 15,
+    "time": "14:00"
+  }
+}
+```
+
 ## Project Structure
 
 ```text
@@ -208,12 +274,23 @@ time-service/
 │   ├── validation.ts           # Input validation utilities
 │   ├── time-formatter.ts       # Time formatting utilities
 │   ├── time-calculator.ts      # Time calculation utilities
+│   ├── time-business.ts        # Business time functions
+│   ├── resources.ts            # MCP Resources definitions
 │   ├── tool-definitions.ts     # MCP tool schemas
 │   ├── tool-handlers.ts        # Tool execution logic
 │   ├── *.test.ts               # Comprehensive test suite
 ├── package.json
 └── README.md
 ```
+
+## MCP Resources
+
+This server provides discoverable resources for better user experience:
+
+- **time://timezones/common** - List of commonly used timezone names
+- **time://timezones/by-region** - Timezones grouped by geographic region
+- **time://formats** - Available time formats with examples
+- **time://tools/examples** - Example use cases for each tool
 
 ## Development
 
@@ -231,8 +308,9 @@ bun test
 
 The project includes comprehensive test coverage:
 
-- 60+ tests covering all functionality
+- 83+ tests covering all functionality
 - Unit tests for time formatting and calculations
+- Unit tests for business time functions
 - Validation tests for input parameters
 - Integration tests for tool handlers
 

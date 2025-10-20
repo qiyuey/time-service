@@ -19,6 +19,9 @@ export const TOOL_NAMES = {
   ADD_TIME: "add_time",
   TIME_DIFF: "time_diff",
   CONVERT_TIMEZONE: "convert_timezone",
+  GET_MULTIPLE_TIMEZONES: "get_multiple_timezones",
+  GET_BUSINESS_DAYS: "get_business_days",
+  NEXT_OCCURRENCE: "next_occurrence",
 } as const;
 
 /**

@@ -117,3 +117,72 @@ export interface ConvertTimezoneResult {
   convertedTimezone: string;
   format: string;
 }
+
+/**
+ * 多时区查询选项
+ */
+export interface MultipleTimezonesOptions {
+  timezones: string[];
+  time?: string;
+  format?: string;
+}
+
+/**
+ * 单个时区的时间信息
+ */
+export interface TimezoneInfo {
+  timezone: string;
+  time: string;
+  format: string;
+  utcOffset: string;
+}
+
+/**
+ * 多时区查询结果
+ */
+export interface MultipleTimezonesResult {
+  baseTime: string;
+  timezones: TimezoneInfo[];
+}
+
+/**
+ * 工作日计算选项
+ */
+export interface BusinessDaysOptions {
+  startDate: string;
+  days: number;
+  excludeWeekends?: boolean;
+}
+
+/**
+ * 工作日计算结果
+ */
+export interface BusinessDaysResult {
+  startDate: string;
+  days: number;
+  resultDate: string;
+  excludedWeekends: boolean;
+  totalDaysSpanned: number;
+}
+
+/**
+ * 下次出现选项
+ */
+export interface NextOccurrenceOptions {
+  dayOfWeek?: number; // 0-6, 0=Sunday
+  dayOfMonth?: number; // 1-31
+  time?: string; // HH:mm format
+  baseTime?: string;
+  timezone?: string;
+}
+
+/**
+ * 下次出现结果
+ */
+export interface NextOccurrenceResult {
+  baseTime: string;
+  targetDescription: string;
+  nextOccurrence: string;
+  daysUntil: number;
+  timezone: string;
+}

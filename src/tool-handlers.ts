@@ -4,6 +4,11 @@
 
 import { formatTime, getTimestamp } from "./time-formatter";
 import { addTime, timeDiff, convertTimezone } from "./time-calculator";
+import {
+  getMultipleTimezones,
+  getBusinessDays,
+  nextOccurrence,
+} from "./time-business";
 import { TOOL_NAMES } from "./config";
 import type { ToolCallParams, ToolResult } from "./types";
 
@@ -99,6 +104,46 @@ function handleConvertTimezone(args?: Record<string, unknown>): ToolResult {
 }
 
 /**
+ * 处理 get_multiple_timezones 工具
+ */
+function handleGetMultipleTimezones(
+  args?: Record<string, unknown>,
+): ToolResult {
+  const result = getMultipleTimezones({
+    timezones: args?.timezones as string[],
+    time: args?.time as string | undefined,
+    format: args?.format as string | undefined,
+  });
+  return createSuccessResponse(result);
+}
+
+/**
+ * 处理 get_business_days 工具
+ */
+function handleGetBusinessDays(args?: Record<string, unknown>): ToolResult {
+  const result = getBusinessDays({
+    startDate: args?.startDate as string,
+    days: args?.days as number,
+    excludeWeekends: args?.excludeWeekends as boolean | undefined,
+  });
+  return createSuccessResponse(result);
+}
+
+/**
+ * 处理 next_occurrence 工具
+ */
+function handleNextOccurrence(args?: Record<string, unknown>): ToolResult {
+  const result = nextOccurrence({
+    dayOfWeek: args?.dayOfWeek as number | undefined,
+    dayOfMonth: args?.dayOfMonth as number | undefined,
+    time: args?.time as string | undefined,
+    baseTime: args?.baseTime as string | undefined,
+    timezone: args?.timezone as string | undefined,
+  });
+  return createSuccessResponse(result);
+}
+
+/**
  * 工具处理器映射表
  */
 const toolHandlers: Record<
@@ -110,6 +155,9 @@ const toolHandlers: Record<
   [TOOL_NAMES.ADD_TIME]: handleAddTime,
   [TOOL_NAMES.TIME_DIFF]: handleTimeDiff,
   [TOOL_NAMES.CONVERT_TIMEZONE]: handleConvertTimezone,
+  [TOOL_NAMES.GET_MULTIPLE_TIMEZONES]: handleGetMultipleTimezones,
+  [TOOL_NAMES.GET_BUSINESS_DAYS]: handleGetBusinessDays,
+  [TOOL_NAMES.NEXT_OCCURRENCE]: handleNextOccurrence,
 };
 
 /**

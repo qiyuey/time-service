@@ -161,6 +161,105 @@ export const convertTimezoneToolDefinition = {
 } as const;
 
 /**
+ * get_multiple_timezones 工具定义
+ */
+export const getMultipleTimezonesToolDefinition = {
+  name: TOOL_NAMES.GET_MULTIPLE_TIMEZONES,
+  description:
+    "Get the current time in multiple timezones at once (batch operation)",
+  inputSchema: {
+    type: "object",
+    properties: {
+      timezones: {
+        type: "array",
+        description:
+          "Array of timezone names (e.g., ['America/New_York', 'Asia/Tokyo', 'Europe/London'])",
+        items: {
+          type: "string",
+        },
+      },
+      time: {
+        type: "string",
+        description:
+          "Optional specific time to convert (ISO 8601 format). Defaults to current time.",
+      },
+      format: {
+        type: "string",
+        description: "Format for the result times",
+        enum: Object.values(TIME_FORMATS),
+        default: TIME_FORMATS.ISO,
+      },
+    },
+    required: ["timezones"],
+  },
+} as const;
+
+/**
+ * get_business_days 工具定义
+ */
+export const getBusinessDaysToolDefinition = {
+  name: TOOL_NAMES.GET_BUSINESS_DAYS,
+  description:
+    "Calculate a date by adding/subtracting business days (excluding weekends)",
+  inputSchema: {
+    type: "object",
+    properties: {
+      startDate: {
+        type: "string",
+        description: "Starting date (ISO 8601 format)",
+      },
+      days: {
+        type: "number",
+        description:
+          "Number of business days to add (positive) or subtract (negative)",
+      },
+      excludeWeekends: {
+        type: "boolean",
+        description: "Whether to exclude weekends (default: true)",
+        default: true,
+      },
+    },
+    required: ["startDate", "days"],
+  },
+} as const;
+
+/**
+ * next_occurrence 工具定义
+ */
+export const nextOccurrenceToolDefinition = {
+  name: TOOL_NAMES.NEXT_OCCURRENCE,
+  description:
+    "Find the next occurrence of a specific day of week, day of month, or time",
+  inputSchema: {
+    type: "object",
+    properties: {
+      dayOfWeek: {
+        type: "number",
+        description:
+          "Day of week (0=Sunday, 1=Monday, ..., 6=Saturday). Optional.",
+      },
+      dayOfMonth: {
+        type: "number",
+        description: "Day of month (1-31). Optional.",
+      },
+      time: {
+        type: "string",
+        description: 'Specific time in HH:mm format (e.g., "14:30"). Optional.',
+      },
+      baseTime: {
+        type: "string",
+        description:
+          "Base time to calculate from (ISO 8601 format). Defaults to current time.",
+      },
+      timezone: {
+        type: "string",
+        description: "Timezone for the calculation (e.g., 'America/New_York')",
+      },
+    },
+  },
+} as const;
+
+/**
  * 所有工具定义
  */
 export const toolDefinitions = [
@@ -169,4 +268,7 @@ export const toolDefinitions = [
   addTimeToolDefinition,
   timeDiffToolDefinition,
   convertTimezoneToolDefinition,
+  getMultipleTimezonesToolDefinition,
+  getBusinessDaysToolDefinition,
+  nextOccurrenceToolDefinition,
 ] as const;
