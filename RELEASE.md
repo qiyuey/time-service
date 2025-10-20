@@ -1,6 +1,7 @@
 # Release Guide
 
-This project uses automated releases via GitHub Actions. When you push a version tag, the package is automatically published to npm.
+This project uses automated releases via GitHub Actions. When you push a
+version tag, the package is automatically published to npm.
 
 ## Quick Release
 
@@ -18,6 +19,7 @@ npm run release:major
 ```
 
 These commands will:
+
 1. Update the version in `package.json`
 2. Create a git commit
 3. Create a git tag (e.g., `v0.1.2`)
@@ -44,13 +46,13 @@ git push --tags
 ### Configure NPM_TOKEN
 
 1. Generate an npm access token:
-   - Go to https://www.npmjs.com/settings/YOUR_USERNAME/tokens
+   - Go to <https://www.npmjs.com/settings/YOUR_USERNAME/tokens>
    - Click "Generate New Token" → "Classic Token"
    - Select "Automation" type
    - Copy the token
 
 2. Add token to GitHub:
-   - Go to https://github.com/qiyuey/time-service/settings/secrets/actions
+   - Go to <https://github.com/qiyuey/time-service/settings/secrets/actions>
    - Click "New repository secret"
    - Name: `NPM_TOKEN`
    - Value: paste your npm token
@@ -65,8 +67,9 @@ npm run release:patch
 ```
 
 Then check:
-- GitHub Actions: https://github.com/qiyuey/time-service/actions
-- npm package: https://www.npmjs.com/package/@qiyuey/time-service
+
+- GitHub Actions: <https://github.com/qiyuey/time-service/actions>
+- npm package: <https://www.npmjs.com/package/@qiyuey/time-service>
 
 ## What Happens During Release
 
