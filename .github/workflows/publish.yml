@@ -35,12 +35,22 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Publish to npm with retry
-        uses: nick-fields/retry-action@v2
-        with:
-          timeout_minutes: 5
-          max_attempts: 3
-          retry_wait_seconds: 30
-          command: npm publish --access public --provenance
+        run: |
+          for i in 1 2 3; do
+            echo "Attempt $i of 3"
+            if npm publish --access public --provenance; then
+              echo "Successfully published!"
+              exit 0
+            else
+              echo "Attempt $i failed"
+              if [ $i -lt 3 ]; then
+                echo "Waiting 30 seconds before retry..."
+                sleep 30
+              fi
+            fi
+          done
+          echo "All attempts failed"
+          exit 1
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
