@@ -1,0 +1,50 @@
+{
+  "name": "@qiyuey/time-service",
+  "version": "0.1.0",
+  "description": "A Model Context Protocol (MCP) server that provides time-related tools for Claude",
+  "type": "module",
+  "main": "./time-server.ts",
+  "bin": {
+    "time-service": "time-server.ts"
+  },
+  "scripts": {
+    "start": "bun time-server.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "time",
+    "timestamp",
+    "datetime",
+    "bun"
+  ],
+  "author": "qiyuey",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qiyuey/time-service.git"
+  },
+  "bugs": {
+    "url": "https://github.com/qiyuey/time-service/issues"
+  },
+  "homepage": "https://github.com/qiyuey/time-service#readme",
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "files": [
+    "time-server.ts",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

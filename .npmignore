@@ -1,0 +1,26 @@
+# Development files
+*.log
+*.tmp
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Bun
+bun.lock
+
+# Test files
+*.test.ts
+*.spec.ts
+__tests__/
+
+# Documentation source
+CLAUDE.md
+
+# Node modules (included via dependencies)
+node_modules/
