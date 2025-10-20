@@ -16,41 +16,43 @@ This MCP server provides two tools:
 
 ## Installation
 
-### As an npm package
+### Using npx (Recommended)
+
+No installation required! Configure your MCP client:
+
+```json
+{
+  "mcpServers": {
+    "time-service": {
+      "command": "npx",
+      "args": ["-y", "@qiyuey/time-service"]
+    }
+  }
+}
+```
+
+### Using bunx
+
+```json
+{
+  "mcpServers": {
+    "time-service": {
+      "command": "bunx",
+      "args": ["@qiyuey/time-service"]
+    }
+  }
+}
+```
+
+### Using global installation
 
 ```bash
-# Using npm
 npm install -g @qiyuey/time-service
-
-# Using bun
+# or
 bun install -g @qiyuey/time-service
 ```
 
-### From source
-
-```bash
-git clone https://github.com/qiyuey/time-service.git
-cd time-service
-bun install
-```
-
-## Usage
-
-### Running the Server
-
-```bash
-# If installed globally
-time-service
-
-# Or from source
-bun time-server.ts
-```
-
-### Configuring with Claude Desktop
-
-Add this to your Claude Desktop MCP settings:
-
-**If installed globally:**
+Then configure:
 
 ```json
 {
@@ -62,7 +64,15 @@ Add this to your Claude Desktop MCP settings:
 }
 ```
 
-**If running from source:**
+### From source
+
+```bash
+git clone https://github.com/qiyuey/time-service.git
+cd time-service
+bun install
+```
+
+Configure with absolute path:
 
 ```json
 {
