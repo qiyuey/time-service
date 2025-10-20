@@ -1,6 +1,6 @@
 {
   "name": "@qiyuey/time-service",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A Model Context Protocol (MCP) server that provides time-related tools for Claude",
   "type": "module",
   "main": "./time-server.ts",
