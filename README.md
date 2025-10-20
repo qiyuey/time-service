@@ -6,6 +6,8 @@
 [![GitHub Stars](https://img.shields.io/github/stars/qiyuey/time-service?style=social)](https://github.com/qiyuey/time-service)
 [![CI Status](https://github.com/qiyuey/time-service/actions/workflows/publish.yml/badge.svg)](https://github.com/qiyuey/time-service/actions)
 
+[English](README.md) | [中文](README.zh.md)
+
 > 🌍 The most comprehensive time handling MCP server - Beyond simple timezone conversion
 
 **Time Service** is a powerful Model Context Protocol (MCP) server that brings enterprise-grade time manipulation capabilities to your AI assistant. With **8 specialized tools**, it goes far beyond basic timezone queries to solve real-world scheduling, calculation, and business time challenges.
@@ -21,7 +23,9 @@
 ## ✨ Why Time Service?
 
 ### 🎯 Complete Solution
-While other time MCP servers offer only 2 basic tools, **Time Service provides 8 comprehensive tools** covering every time-handling scenario:
+
+**Time Service provides 8 comprehensive tools** covering every time-handling scenario:
+
 - ✅ **Time queries** - Current time, timestamps, multiple timezones
 - ✅ **Time calculations** - Add/subtract time, calculate differences
 - ✅ **Timezone operations** - Convert between any timezones
@@ -31,19 +35,22 @@ While other time MCP servers offer only 2 basic tools, **Time Service provides 8
 
 **🔄 Batch Operations**
 Query multiple timezones in one call - reduce API requests and get instant global time overview:
-```
+
+```text
 One call → All timezones with UTC offsets
 ```
 
 **📅 Business Day Intelligence**
 Automatically skip weekends when calculating deadlines - perfect for project management:
-```
+
+```text
 "Add 5 business days to today" → Automatically excludes weekends
 ```
 
 **⏰ Smart Scheduling**
 Find next occurrence with flexible conditions:
-```
+
+```text
 "Next Monday at 2pm" ✓
 "Next 15th of the month" ✓
 "Next Friday at 14:00" ✓
@@ -51,6 +58,7 @@ Find next occurrence with flexible conditions:
 
 **🎨 Flexible Formatting**
 4 built-in formats plus custom configurations:
+
 - ISO 8601: `2024-01-15T10:30:00Z`
 - Unix timestamp: `1705315800`
 - Human-readable: `Monday, January 15, 2024 at 10:30:00 AM`
@@ -124,7 +132,8 @@ Then configure:
 ### Real-World Scenarios
 
 **Scenario 1: Global Team Coordination**
-```
+
+```text
 User: "What time is it in our offices in New York, London, and Tokyo?"
 
 Time Service: Uses get_multiple_timezones
@@ -132,7 +141,8 @@ Time Service: Uses get_multiple_timezones
 ```
 
 **Scenario 2: Project Deadline Calculation**
-```
+
+```text
 User: "If we start today, what's the date 10 business days from now?"
 
 Time Service: Uses get_business_days
@@ -140,7 +150,8 @@ Time Service: Uses get_business_days
 ```
 
 **Scenario 3: Meeting Scheduling**
-```
+
+```text
 User: "Convert 2pm EST to Tokyo time"
 
 Time Service: Uses convert_timezone
@@ -148,7 +159,8 @@ Time Service: Uses convert_timezone
 ```
 
 **Scenario 4: Recurring Event Planning**
-```
+
+```text
 User: "When's the next Monday at 9am?"
 
 Time Service: Uses next_occurrence
@@ -158,6 +170,7 @@ Time Service: Uses next_occurrence
 ### API Examples
 
 **Get time in multiple timezones:**
+
 ```json
 {
   "name": "get_multiple_timezones",
@@ -169,6 +182,7 @@ Time Service: Uses next_occurrence
 ```
 
 **Calculate business days:**
+
 ```json
 {
   "name": "get_business_days",
@@ -181,6 +195,7 @@ Time Service: Uses next_occurrence
 ```
 
 **Find next occurrence:**
+
 ```json
 {
   "name": "next_occurrence",
@@ -228,12 +243,14 @@ Time Service: Uses next_occurrence
 We welcome contributions! Here's how you can help:
 
 **Priority Areas:**
+
 - 🐳 Docker deployment configurations
 - 📖 Documentation and integration guides  
 - ✨ New time calculation features
 - 🚀 Performance optimizations
 
 **How to Contribute:**
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
@@ -255,8 +272,8 @@ We welcome contributions! Here's how you can help:
 
 ## 🙋 FAQ
 
-**Q: How is this different from the official @modelcontextprotocol/time?**  
-A: We provide **8 comprehensive tools** vs 2 basic ones, including business day calculations, batch timezone queries, smart occurrence finding, and flexible formatting options.
+**Q: What makes Time Service special?**  
+A: We provide **8 comprehensive tools** including business day calculations, batch timezone queries, smart occurrence finding, and flexible formatting options - a complete solution for all your time-handling needs.
 
 **Q: Do I need to install anything?**  
 A: No! Use `npx -y @qiyuey/time-service` directly in your MCP configuration.
